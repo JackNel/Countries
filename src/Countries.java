@@ -1,3 +1,5 @@
+import com.sun.scenario.effect.impl.sw.sse.SSEBlend_SRC_OUTPeer;
+
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -30,10 +32,14 @@ public class Countries {
         System.out.println("Type any letter to see all of the countries beginning with that letter.");
         Scanner scanner = new Scanner(System.in);
         String input = scanner.nextLine().toLowerCase();
-
-        //for (String countryOut :  )
-
-
+        ArrayList<Country> output = alphaGroup.get(input);
+        String outputStr = "";
+        for (Country c : output) {
+            outputStr += String.format("%s %s | ", c.abbr, c.name);
+        }
+        System.out.println(outputStr);
+        String save = String.format("%s_countries", input.toUpperCase());
+        writeFile(save, outputStr);
 
     }//main method
 
