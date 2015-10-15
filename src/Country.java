@@ -7,6 +7,6 @@ public class Country {
 
     public Country(String name, String abbr) {
         this.name = name;
-        this.abbr = abbr;CCC
+        this.abbr = abbr;
     }
 }
