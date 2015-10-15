@@ -2,11 +2,13 @@
  * Created by Jack on 10/15/15.
  */
 public class Country {
-    String name;
     String abbr;
+    String name;
 
-    public Country(String name, String abbr) {
-        this.name = name;
+
+    public Country(String abbr, String name) {
         this.abbr = abbr;
+        this.name = name;
+
     }
 }
