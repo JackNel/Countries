@@ -1,7 +1,9 @@
 import java.io.File;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Scanner;
 
 public class Countries {
     public static void main(String[] args) {
@@ -13,12 +15,24 @@ public class Countries {
             String[] columns = line.split("\\|");
             String abbr = columns[0];
             String name = columns[1];
-            ArrayList<Country> group = new ArrayList();
             Country country = new Country(abbr, name);
-            group.add(country);
             String firstLetter = String.valueOf(name.charAt(0));
-            alphaGroup.put(firstLetter, group);
+            ArrayList<Country> list = alphaGroup.get(firstLetter);
+            if (list == null) {
+                list = new ArrayList();
+                list.add(country);
+                alphaGroup.put(firstLetter, list);
+            } else {
+                list.add(country);
+            }
         }
+
+        System.out.println("Type any letter to see all of the countries beginning with that letter.");
+        Scanner scanner = new Scanner(System.in);
+        String input = scanner.nextLine().toLowerCase();
+
+        //for (String countryOut :  )
+
 
 
     }//main method
@@ -35,4 +49,15 @@ public class Countries {
             return null;
         }
     }//static method readFile
+
+    static void writeFile(String fileName, String fileContent) {
+        File f = new File(fileName);
+        try {
+            FileWriter fw = new FileWriter(f);
+            fw.write(fileContent);
+            fw.close();
+        } catch (Exception e){
+
+        }
+    }//static method writeFile
 }//class Countries
