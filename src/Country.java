@@ -11,4 +11,12 @@ public class Country {
         this.name = name;
 
     }
-}
+
+    public String getAbbr() {
+        return abbr;
+    }//abbr getter
+
+    public String getName() {
+        return name;
+    }//name getter
+}//class Country

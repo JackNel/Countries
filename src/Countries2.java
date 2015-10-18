@@ -1,4 +1,4 @@
-import com.sun.scenario.effect.impl.sw.sse.SSEBlend_SRC_OUTPeer;
+import jodd.json.JsonSerializer;
 
 import java.io.File;
 import java.io.FileReader;
@@ -13,6 +13,7 @@ public class Countries2 {
     public static void main(String[] args) {
         splitColumns();
         returnCountries();
+        saveEntry();
     }//main method
 
     static String readFile(String fileName) {
@@ -27,17 +28,6 @@ public class Countries2 {
             return null;
         }
     }//static method readFile
-
-    static void writeFile(String fileName, String fileContent) {
-        File f = new File(fileName);
-        try {
-            FileWriter fw = new FileWriter(f);
-            fw.write(fileContent);
-            fw.close();
-        } catch (Exception e){
-
-        }
-    }//static method writeFile
 
     static void splitColumns() {
         String cContent = readFile("countries.txt");
@@ -69,7 +59,19 @@ public class Countries2 {
             outputStr += String.format("%s %s | ", c.abbr, c.name);
         }
         System.out.println(outputStr);
-        String save = String.format("%s_countries", input.toUpperCase());
-        writeFile(save, outputStr);
     }//static method returnCountries
+
+    static void saveEntry() {
+        File f = new File("save.json");
+        JsonSerializer serializer = new JsonSerializer();
+        String contentToSave = serializer.serialize(alphaGroup);
+        try {
+            FileWriter fw = new FileWriter(f);
+            fw.write(contentToSave);
+            fw.close();
+        } catch (Exception e) {
+            System.out.println("Save Failed!");
+        }
+    }//static method saveEntry
+
 }//class Countries
