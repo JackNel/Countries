@@ -7,28 +7,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
 
-public class Countries {
+public class Countries2 {
+    public static HashMap<String, ArrayList<Country>> alphaGroup = new HashMap();
+
     public static void main(String[] args) {
-
-        HashMap<String, ArrayList<Country>> alphaGroup = new HashMap();
-        String cContent = readFile("countries.txt");
-        String[] lines = cContent.split("\n");
-
-        for (String line : lines) {
-            String[] columns = line.split("\\|");
-            String abbr = columns[0];
-            String name = columns[1];
-            Country country = new Country(abbr, name);
-            String firstLetter = String.valueOf(name.charAt(0));
-            ArrayList<Country> list = alphaGroup.get(firstLetter);
-            if (list == null) {
-                list = new ArrayList();
-                list.add(country);
-                alphaGroup.put(firstLetter, list);
-            } else {
-                list.add(country);
-            }
-        }
+        splitColumns();
 
         System.out.println("Type any letter to see all of the countries beginning with that letter.");
         Scanner scanner = new Scanner(System.in);
@@ -67,4 +50,25 @@ public class Countries {
 
         }
     }//static method writeFile
+
+    static void splitColumns() {
+        String cContent = readFile("countries.txt");
+        String[] lines = cContent.split("\n");
+        for (String line : lines) {
+            String[] columns = line.split("\\|");
+            String abbr = columns[0];
+            String name = columns[1];
+            Country country = new Country(abbr, name);
+            String firstLetter = String.valueOf(name.charAt(0));
+            ArrayList<Country> list = alphaGroup.get(firstLetter);
+            if (list == null) {
+                list = new ArrayList();
+                list.add(country);
+                alphaGroup.put(firstLetter, list);
+            } else {
+                list.add(country);
+            }
+        }
+    }//static method splitColumns
+
 }//class Countries
