@@ -12,19 +12,7 @@ public class Countries2 {
 
     public static void main(String[] args) {
         splitColumns();
-
-        System.out.println("Type any letter to see all of the countries beginning with that letter.");
-        Scanner scanner = new Scanner(System.in);
-        String input = scanner.nextLine().toLowerCase();
-        ArrayList<Country> output = alphaGroup.get(input);
-        String outputStr = "";
-        for (Country c : output) {
-            outputStr += String.format("%s %s | ", c.abbr, c.name);
-        }
-        System.out.println(outputStr);
-        String save = String.format("%s_countries", input.toUpperCase());
-        writeFile(save, outputStr);
-
+        returnCountries();
     }//main method
 
     static String readFile(String fileName) {
@@ -71,4 +59,17 @@ public class Countries2 {
         }
     }//static method splitColumns
 
+    static void returnCountries() {
+        System.out.println("Type any letter to see all of the countries beginning with that letter.");
+        Scanner scanner = new Scanner(System.in);
+        String input = scanner.nextLine().toLowerCase();
+        ArrayList<Country> output = alphaGroup.get(input);
+        String outputStr = "";
+        for (Country c : output) {
+            outputStr += String.format("%s %s | ", c.abbr, c.name);
+        }
+        System.out.println(outputStr);
+        String save = String.format("%s_countries", input.toUpperCase());
+        writeFile(save, outputStr);
+    }//static method returnCountries
 }//class Countries
