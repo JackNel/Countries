@@ -5,42 +5,47 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
 
-public class Countries {
+/**
+ * Created by Jack on 10/19/15.  This is Zach's version from in class on 10/19/2015
+ */
+public class Countries3 {
     public static void main(String[] args) {
-        HashMap<String, ArrayList<Country>> alphaGroup = new HashMap();
-        String cContent = readFile("countries.txt");
-        String[] lines = cContent.split("\n");
+        String fileContent = readFile("countries.txt");
+        String[] lines = fileContent.split("\n");
+        HashMap<String, ArrayList<Country>> countries = new HashMap();
 
         for (String line : lines) {
             String[] columns = line.split("\\|");
             String abbr = columns[0];
             String name = columns[1];
-            Country country = new Country(abbr, name);
+            Country c = new Country(abbr, name);
 
-            String firstLetter = String.valueOf(name.charAt(0));
-            ArrayList<Country> list = alphaGroup.get(firstLetter);
+            String firstLetter = name.substring(0, 1);
+            ArrayList<Country> list = countries.get(firstLetter);
             if (list == null) {
                 list = new ArrayList();
-                list.add(country);
-                alphaGroup.put(firstLetter, list);
+                list.add(c);
+                countries.put(firstLetter, list);
             } else {
-                list.add(country);
+                list.add(c);
             }
-        }
+        }//for loop
 
-        System.out.println("Type any letter to see all of the countries beginning with that letter.");
         Scanner scanner = new Scanner(System.in);
-        String input = scanner.nextLine().toLowerCase();
-        ArrayList<Country> output = alphaGroup.get(input);
-        String outputStr = "";
-        for (Country c : output) {
-            outputStr += String.format("%s %s | ", c.abbr, c.name);
+        String letter = scanner.nextLine();
+        ArrayList<Country> list = countries.get(letter);
+        if (list == null) {
+            System.out.println(String.format("Can't find any country starting with '%s'", letter));
+        } else {
+            String output = "";
+            for (Country c : list) {
+                output += String.format("%s %s\n", c.abbr, c.name);
+            }
+            writeFile(String.format("%s_countries.txt", letter), output);
         }
-        System.out.println(outputStr);
-        String save = String.format("%s_countries", input.toUpperCase());
-        writeFile(save, outputStr);
-
     }//main method
+
+
 
     static String readFile(String fileName) {
         File f = new File(fileName);
@@ -65,4 +70,5 @@ public class Countries {
 
         }
     }//static method writeFile
-}//class Countries
+
+}//Countries3 class
