@@ -53,12 +53,17 @@ public class Countries2 {
         System.out.println("Type any letter to see all of the countries beginning with that letter.");
         Scanner scanner = new Scanner(System.in);
         String input = scanner.nextLine().toLowerCase();
-        ArrayList<Country> output = alphaGroup.get(input);
-        String outputStr = "";
-        for (Country c : output) {
-            outputStr += String.format("%s %s | ", c.abbr, c.name);
+        if (input.length() != 1  || !input.matches("[A-Za-z]")) {
+            System.out.println("Not a valid entry");
+            returnCountries();
+        } else {
+            ArrayList<Country> output = alphaGroup.get(input);
+            String outputStr = "";
+            for (Country c : output) {
+                outputStr += String.format("%s %s | ", c.abbr, c.name);
+            }
+            System.out.println(outputStr);
         }
-        System.out.println(outputStr);
     }//static method returnCountries
 
     static void saveEntry() {
