@@ -9,6 +9,7 @@ import java.util.Scanner;
 
 public class Countries2 {
     public static HashMap<String, ArrayList<Country>> alphaGroup = new HashMap();
+    public static ArrayList<Country> output = new ArrayList();
 
     public static void main(String[] args) {
         splitColumns();
@@ -69,7 +70,7 @@ public class Countries2 {
     static void saveEntry() {
         File f = new File("save.json");
         JsonSerializer serializer = new JsonSerializer();
-        String contentToSave = serializer.serialize(alphaGroup);
+        String contentToSave = serializer.serialize(output);
         try {
             FileWriter fw = new FileWriter(f);
             fw.write(contentToSave);
